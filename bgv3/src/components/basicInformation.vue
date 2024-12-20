@@ -21,6 +21,9 @@
       <a-form-item label="调查人">
         <a-textarea :rows="1" />
       </a-form-item>
+      <a-form-item label="年龄">
+        <a-input-number />
+      </a-form-item>
       <a-form-item label="活动简述">
         <a-textarea :rows="3" />
       </a-form-item>

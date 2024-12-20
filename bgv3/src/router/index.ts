@@ -7,6 +7,7 @@ import HomePage from "@/views/homePage.vue";
 import post_postPage from "@/views/post_postPage.vue";
 import documentCenterPage from "@/views/docunmentCenterPage.vue";
 import posts from "@/views/posts.vue";
+import mapService from "@/views/mapService.vue";
 
 const routes: Array<RouteRecordRaw> = [
   {
@@ -38,6 +39,11 @@ const routes: Array<RouteRecordRaw> = [
     path: "/_posts/posts",
     name: "posts",
     component: posts,
+  },
+  {
+    path: "/map_service",
+    name: "mapService",
+    component: mapService,
   },
 ];
 

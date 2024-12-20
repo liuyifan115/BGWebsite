@@ -55,6 +55,11 @@ const columns = [
     dataIndex: "persons",
   },
   {
+    title: "年龄",
+    dataIndex: "age",
+    key: "age",
+  },
+  {
     title: "活动概要",
     dataIndex: "tags",
     key: "tags",

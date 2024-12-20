@@ -85,12 +85,7 @@ const items = ref<MenuProps["items"]>([
   {
     key: "/map_service",
     icon: () => h(HeatMapOutlined),
-    label: h(
-      "a",
-      { href: "https://map.baidu.com/", target: "_blank" },
-      "地图服务"
-    ),
-    title: "地图服务",
+    label: "地图服务",
   },
 ]);
 </script>

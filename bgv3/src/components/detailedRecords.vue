@@ -1,10 +1,6 @@
 <template>
   <div>
-    <a-input
-      v-model:value="value1"
-      placeholder="输入你的标题"
-      allow-clear
-    />
+    <a-input v-model:value="value1" placeholder="输入你的标题" allow-clear />
     <br />
     <br />
     <a-textarea
