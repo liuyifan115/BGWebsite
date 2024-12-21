@@ -2,7 +2,7 @@
   <div class="clearfix">
     <a-upload
       v-model:file-list="fileList"
-      action="https://www.mocky.io/v2/5cc8019d300000980a055e76"
+      action="http://localhost:8000/api/postPhoto"
       list-type="picture-card"
       @preview="handlePreview"
     >
@@ -29,8 +29,8 @@
 <script lang="ts" setup>
 import { PlusOutlined } from "@ant-design/icons-vue";
 import { ref } from "vue";
-import {message, UploadProps} from "ant-design-vue";
-import {postFile, postPng} from "@/api/basicInfomation";
+import { message, UploadProps } from "ant-design-vue";
+import { postPhoto } from "@/api/basicInfomation";
 
 function getBase64(file: File) {
   return new Promise((resolve, reject) => {
@@ -69,14 +69,13 @@ const handlePreview = async (file: UploadProps["fileList"][number]) => {
 };
 
 const postPng_ = async () => {
-  const res = await postFile(fileList.value);
-  if (res.data.code === 0) {
+  const res = await postPhoto();
+  if (res.data.success === "1") {
     message.success("保存成功");
   } else {
-    message.error("保存失败");
+    message.error("保存失败,请重新上传");
   }
-}
-
+};
 </script>
 <style scoped>
 /* you can make up upload button and sample style by using stylesheets */

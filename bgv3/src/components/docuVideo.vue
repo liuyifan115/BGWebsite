@@ -2,11 +2,11 @@
   <div class="clearfix">
     <a-upload
       v-model:file-list="fileList"
-      action="https://www.mocky.io/v2/5cc8019d300000980a055e76"
+      action="http://localhost:8000/api/postVideo"
       list-type="picture-card"
       @preview="handlePreview"
     >
-      <div v-if="fileList.length < 8">
+        <div v-if="fileList.length < 8">
         <plus-outlined />
         <div style="margin-top: 8px">Upload</div>
       </div>
@@ -33,7 +33,7 @@
 import { PlusOutlined } from "@ant-design/icons-vue";
 import { ref } from "vue";
 import { message, UploadProps } from "ant-design-vue";
-import { postFile, postOver } from "@/api/basicInfomation";
+import { postOver, postVideo } from "@/api/basicInfomation";
 
 function getBase64(file: File) {
   return new Promise((resolve, reject) => {
@@ -65,8 +65,8 @@ const handlePreview = async (file: UploadProps["fileList"][number]) => {
 };
 
 const postVideo_ = async () => {
-  const res = await postFile(fileList.value);
-  if (res.data.code === 0) {
+  const res = await postVideo();
+  if (res.data.success === 0) {
     message.success("保存成功");
   } else {
     message.error("保存失败");
