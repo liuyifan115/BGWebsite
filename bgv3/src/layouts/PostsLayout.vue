@@ -24,7 +24,7 @@
             }"
           >
             <a-layout>
-              <show-my-post />
+              <show-my-post :id="pid" />
             </a-layout>
           </a-layout-content>
         </a-layout>

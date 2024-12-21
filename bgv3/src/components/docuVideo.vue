@@ -32,8 +32,8 @@
 <script lang="ts" setup>
 import { PlusOutlined } from "@ant-design/icons-vue";
 import { ref } from "vue";
-import {message, UploadProps} from "ant-design-vue";
-import {postFile, postOver, postPng} from "@/api/basicInfomation";
+import { message, UploadProps } from "ant-design-vue";
+import { postFile, postOver } from "@/api/basicInfomation";
 
 function getBase64(file: File) {
   return new Promise((resolve, reject) => {
@@ -71,7 +71,7 @@ const postVideo_ = async () => {
   } else {
     message.error("保存失败");
   }
-}
+};
 </script>
 <style scoped>
 /* you can make up upload button and sample style by using stylesheets */

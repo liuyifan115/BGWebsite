@@ -54,6 +54,7 @@
 import { ref } from "vue";
 import { message } from "ant-design-vue";
 import { GetMyInfo } from "@/api/GetMyInfo";
+import { defineProps } from "vue";
 
 // 假设这是远端接口返回的 `data` 数据
 const data = ref([]);
@@ -65,7 +66,13 @@ const fetchData = async (id) => {
     message.error("获取数据失败");
   }
 };
-// fetchData(id);
+const props = defineProps({
+  id: {
+    type: String,
+    required: true,
+  },
+});
+fetchData(props.id);
 </script>
 
 <style scoped>
