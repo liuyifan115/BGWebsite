@@ -10,8 +10,8 @@ export const useLoginUserStore = defineStore("loginUser", () => {
   // 远程获取用户登录信息
   async function fetchLoginUser() {
     const res = await getCurrentUser();
-    if (res.data.code === 0 && res.data.data) {
-      loginUser.value = res.data.data;
+    if (res.data) {
+      loginUser.value.username = res.data;
     }
     // else {
     //   setTimeout(() => {

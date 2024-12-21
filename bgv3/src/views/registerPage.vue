@@ -92,7 +92,7 @@ const submitForm = async (action: string) => {
   if (action === "login") {
     const res = await userLogin(credentials.value);
     //登陆成功
-    if (res.data.code === 0 && res.data.data) {
+    if (res.data.success === "1") {
       await loginUserStore.fetchLoginUser();
       message.success("登陆成功");
       router.push({
@@ -106,7 +106,7 @@ const submitForm = async (action: string) => {
   } else if (action === "register") {
     const res = await userRegister(credentials.value);
     //注册成功
-    if (res.data.code === 0 && res.data.data) {
+    if (res.data.success === "1") {
       message.success("注册成功");
       router.push({
         path: "/user/login",
