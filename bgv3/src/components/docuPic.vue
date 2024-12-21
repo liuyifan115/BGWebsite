@@ -20,16 +20,17 @@
       <img alt="example" style="width: 100%" :src="previewImage" />
     </a-modal>
   </div>
-  <div class="button-class" >
+  <div class="button-class">
     <div style="margin-top: 20px; display: flex; justify-content: center">
-      <a-button type="primary">保存</a-button>
+      <a-button type="primary" @click="postPng_">保存</a-button>
     </div>
   </div>
 </template>
 <script lang="ts" setup>
 import { PlusOutlined } from "@ant-design/icons-vue";
 import { ref } from "vue";
-import type { UploadProps } from "ant-design-vue";
+import {message, UploadProps} from "ant-design-vue";
+import {postFile, postPng} from "@/api/basicInfomation";
 
 function getBase64(file: File) {
   return new Promise((resolve, reject) => {
@@ -66,6 +67,16 @@ const handlePreview = async (file: UploadProps["fileList"][number]) => {
   previewTitle.value =
     file.name || file.url.substring(file.url.lastIndexOf("/") + 1);
 };
+
+const postPng_ = async () => {
+  const res = await postFile(fileList.value);
+  if (res.data.code === 0) {
+    message.success("保存成功");
+  } else {
+    message.error("保存失败");
+  }
+}
+
 </script>
 <style scoped>
 /* you can make up upload button and sample style by using stylesheets */
