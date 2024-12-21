@@ -33,6 +33,8 @@
 </style>
 
 <script lang="ts" setup>
+import { message } from "ant-design-vue";
+
 const columns = [
   {
     name: "活动主题",
@@ -66,30 +68,44 @@ const columns = [
   },
 ];
 
-const data = [
-  {
-    key: "1",
-    name: "敦煌研究",
-    persons: "刘一凡",
-    time: "2018-02-01",
-    age: 21,
-    address: "敦煌",
-    tags: "研究敦煌",
-  },
-  {
-    key: "2",
-    name: "Jim Green",
-    persons: "刘一凡",
-    age: 42,
-    address: "London No. 1 Lake Park",
-    tags: ["loser"],
-  },
-  {
-    key: "3",
-    name: "Joe Black",
-    age: 32,
-    address: "Sidney No. 1 Lake Park",
-    tags: ["cool", "teacher"],
-  },
-];
+// const data = [
+//   {
+//     key: "1",
+//     name: "敦煌研究",
+//     persons: "刘一凡",
+//     time: "2018-02-01",
+//     age: 21,
+//     address: "敦煌",
+//     tags: "研究敦煌",
+//   },
+//   {
+//     key: "2",
+//     name: "Jim Green",
+//     persons: "刘一凡",
+//     age: 42,
+//     address: "London No. 1 Lake Park",
+//     tags: ["loser"],
+//   },
+//   {
+//     key: "3",
+//     name: "Joe Black",
+//     age: 32,
+//     address: "Sidney No. 1 Lake Park",
+//     tags: ["cool", "teacher"],
+//   },
+// ];
+import { ref } from "vue";
+import { getBasicInformation } from "@/api/basicInfomation";
+
+// get data
+const data = ref([]);
+const fetchData = async () => {
+  const res = await getBasicInformation();
+  if (res.data.data) {
+    data.value = res.data.data;
+  } else {
+    message.error("获取数据失败");
+  }
+};
+fetchData();
 </script>

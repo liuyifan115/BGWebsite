@@ -62,6 +62,10 @@
 
 <script lang="ts" setup>
 import { ref, computed } from "vue";
+import { userLogin, userRegister } from "@/api/user";
+import { useLoginUserStore } from "@/store/useLoginUserStore";
+import { message } from "ant-design-vue";
+import { useRouter } from "vue-router";
 
 interface Credentials {
   username: string;
@@ -81,26 +85,43 @@ function toggleForm(showLogin: boolean): void {
   confirmPassword.value = "";
 }
 
-function submitForm(action: string): void {
-  if (
-    action === "register" &&
-    credentials.value.password !== confirmPassword.value
-  ) {
-    alert("密码和确认密码不匹配");
-    return;
+const loginUserStore = useLoginUserStore();
+const router = useRouter();
+// 提交表单
+const submitForm = async (action: string) => {
+  if (action === "login") {
+    const res = await userLogin(credentials.value);
+    //登陆成功
+    if (res.data.code === 0 && res.data.data) {
+      await loginUserStore.fetchLoginUser();
+      message.success("登陆成功");
+      router.push({
+        path: "/",
+        replace: true,
+      });
+    } else {
+      message.error("登陆失败");
+    }
+    console.log("success:", credentials.value);
+  } else if (action === "register") {
+    const res = await userRegister(credentials.value);
+    //注册成功
+    if (res.data.code === 0 && res.data.data) {
+      message.success("注册成功");
+      router.push({
+        path: "/user/login",
+        replace: true,
+      });
+    } else {
+      message.error("注册失败");
+    }
   }
-  console.log({
-    action,
-    username: credentials.value.username,
-    password: credentials.value.password,
-  });
-  // 实际应用中这里会有 AJAX 请求
-  alert(`提交了${action}表单`);
-}
+};
 </script>
 
 <style scoped>
 @import "../assets/css/login.css";
+
 .background-div {
   width: 100vw; /* 视口宽度100% */
   height: 100vh; /* 视口高度100% */

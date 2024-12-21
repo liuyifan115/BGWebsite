@@ -277,4 +277,14 @@
   padding-bottom: 20px;
   border-bottom: 1px solid #ededed;
 }
+
+.maintitle {
+  font-size: 20px;
+  font-weight: bold;
+  cursor: pointer; /* 添加指针效果，提示用户可以点击 */
+}
+
+.maintitle:hover {
+  text-decoration: underline; /* 鼠标悬浮时添加下划线 */
+}
 </style>
