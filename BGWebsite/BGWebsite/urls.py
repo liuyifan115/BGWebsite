@@ -26,5 +26,9 @@ urlpatterns = [
     path("api/user/current", user.views.current_user),
     path("api/postBasicInfo", main.views.post_basic_info),
     path("api/postDetails", main.views.post_detail),
+    path("api/postPhoto", main.views.post_photo),
+    path("api/postVideo", main.views.post_video),
+    path("api/postOver", main.views.post_over),
+    path("api/getBasicInfo", main.views.get_basic_info),
     path('admin/', admin.site.urls),
 ]

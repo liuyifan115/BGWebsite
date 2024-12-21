@@ -1,8 +1,9 @@
 import json
-
+import hashlib
 from django.http import HttpResponse, JsonResponse
 
 from user.models import User
+
 
 currentUser = ""
 
@@ -22,7 +23,7 @@ def user_register(request):
             if User.objects.filter(username=username).exists():
                 return JsonResponse({"success": "0", "message": "user already exists"})
 
-            user = User(username=username, password=password)
+            user = User(username=username, password=hashlib.md5(password.encode()).hexdigest())
             user.save()
 
             return JsonResponse({"success": "1", "message": "register success"})
