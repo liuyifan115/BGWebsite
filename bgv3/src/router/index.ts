@@ -8,6 +8,7 @@ import post_postPage from "@/views/post_postPage.vue";
 import documentCenterPage from "@/views/docunmentCenterPage.vue";
 import posts from "@/views/posts.vue";
 import mapService from "@/views/mapService.vue";
+import PostsLayout from "@/layouts/PostsLayout.vue";
 
 const routes: Array<RouteRecordRaw> = [
   {
@@ -44,6 +45,11 @@ const routes: Array<RouteRecordRaw> = [
     path: "/map_service",
     name: "mapService",
     component: mapService,
+  },
+  {
+    path: "/_posts/postsLayout",
+    name: "PostsLayout",
+    component: PostsLayout,
   },
 ];
 
