@@ -58,3 +58,6 @@ def user_login(request):
 
 def current_user(request):
     return JsonResponse({"success": "1", "current_user": currentUser})
+
+def __get_current_user():
+    return currentUser

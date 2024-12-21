@@ -2,7 +2,7 @@
   <div class="clearfix">
     <a-upload
       v-model:file-list="fileList"
-      action="https://www.mocky.io/v2/5cc8019d300000980a055e76"
+      action="http://localhost:8000/api/post"
       list-type="picture-card"
       @preview="handlePreview"
     >
