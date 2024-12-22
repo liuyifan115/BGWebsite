@@ -8,3 +8,12 @@ export const GetMyInfo = async (id: any) => {
   });
   return res;
 };
+
+export const GetImage = async (id: any) => {
+  const res = await myAxios.request({
+    url: "/api/user/GetImage",
+    method: "GET",
+    params: id,
+  });
+  return res;
+};

@@ -25,7 +25,7 @@
       <a-button type="primary" @click="postVideo_">保存</a-button>
     </div>
     <div style="margin-top: 20px; display: flex; justify-content: center">
-      <a-button type="primary" @click="postOver()">发布</a-button>
+      <a-button type="primary" @click="postOver_">发布</a-button>
     </div>
   </div>
 </template>
@@ -34,6 +34,15 @@ import { PlusOutlined } from "@ant-design/icons-vue";
 import { ref } from "vue";
 import { message, UploadProps } from "ant-design-vue";
 import { postOver, postVideo } from "@/api/basicInfomation";
+
+const  postOver_ = async () => {
+  const res = await postOver();
+  if (res.data.success === "1") {
+    message.success("保存成功");
+  } else {
+    message.error("保存失败");
+  }
+}
 
 function getBase64(file: File) {
   return new Promise((resolve, reject) => {
@@ -66,7 +75,7 @@ const handlePreview = async (file: UploadProps["fileList"][number]) => {
 
 const postVideo_ = async () => {
   const res = await postVideo();
-  if (res.data.success === 0) {
+  if (res.data.success === "1") {
     message.success("保存成功");
   } else {
     message.error("保存失败");

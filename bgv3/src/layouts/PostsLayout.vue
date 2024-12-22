@@ -24,7 +24,7 @@
             }"
           >
             <a-layout>
-              <show-my-post :id="props.key" />
+              <show-my-post :id="this.$route.query.id" />
             </a-layout>
           </a-layout-content>
         </a-layout>
@@ -35,13 +35,14 @@
 
 <script lang="ts" setup>
 import ShowMyPost from "@/views/ShowMyPost.vue";
+
 import { defineProps } from "vue";
-const props = defineProps({
-  key: {
-    type: String,
-    required: true,
-  },
-});
+// const props = defineProps({
+//   key: {
+//     type: String,
+//     required: true,
+//   },
+// });
 </script>
 
 <style scoped>

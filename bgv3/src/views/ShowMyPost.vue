@@ -14,10 +14,6 @@
         <span class="data-item-content">{{ item.time }}</span>
       </div>
       <div class="data-item-row">
-        <span class="data-item-title">年龄：</span>
-        <span class="data-item-content">{{ item.age }}</span>
-      </div>
-      <div class="data-item-row">
         <span class="data-item-title">活动地点：</span>
         <span class="data-item-content">{{ item.address }}</span>
       </div>
@@ -34,13 +30,12 @@
         <span class="data-item-title">活动摘要：</span>
         <span class="data-item-content">{{ item.tags }}</span>
       </div>
-      <div v-if="item.images && item.images.length > 0" class="data-item-row">
+      <div v-if="item.photo" class="data-item-row">
         <span class="data-item-title">活动图片：</span>
         <div class="image-gallery">
           <img
-            v-for="(image, index) in item.images"
-            :key="index"
-            :src="image"
+            v-for="image in imagesArray"
+            :src="'http://127.0.0.1:8000/api/user/GetImage?path=' + image"
             alt="活动图片"
             class="image-item"
           />
@@ -51,29 +46,71 @@
 </template>
 
 <script lang="ts" setup>
-import { ref } from "vue";
+import { ref, onMounted, watch } from "vue";
 import { message } from "ant-design-vue";
-import { GetMyInfo } from "@/api/GetMyInfo";
 import { defineProps } from "vue";
-import { getBasicInformation } from "@/api/basicInfomation";
+import { GetImage, GetMyInfo } from "@/api/GetMyInfo";
+
+// const GetImage_ = async ({ path }: { path: string }) => {
+//   const reg = await GetImage(path);
+//   return reg;
+// }
 
 // 假设这是远端接口返回的 `data` 数据
 const data = ref([]);
-const fetchData = async () => {
-  const res = await getBasicInformation();
+var imagesArray = [];
+const pgoto_blob = ref([]);
+
+onMounted(async () => {
+  await Promise.all(
+    imagesArray.map(async (image) => {
+      const url = await fetchPhoto(image);
+      imageUrls.value.push(url);
+    })
+  );
+});
+
+// const fetchData = async () => {
+//   const res = await getBasicInformation();
+//   if (res.data.success === "1") {
+//     data.value = res.data.data;
+//   } else {
+//     message.error("获取数据失败");
+//   }
+// };
+
+const fetchPhoto = async (id) => {
+  await Promise.all();
+  const imageData = await GetImage({ path: id });
+  console.log(imageData.data);
+  var photo_blob = new Blob([imageData.data], { type: "image/png" });
+  const url = URL.createObjectURL(photo_blob);
+  console.log(url);
+  return url;
+};
+
+const fetchData = async (props) => {
+  const res = await GetMyInfo({ id: props.id });
   if (res.data.success === "1") {
     data.value = res.data.data;
+    imagesArray = JSON.parse(
+      JSON.parse(JSON.stringify(data.value))[0]["photo"].replace(/'/g, '"')
+    );
   } else {
     message.error("获取数据失败");
   }
 };
+const trans = async () => {
+  imagesArray.value = ref(JSON.parse(data.value.photo.replace(/'/g, '"')));
+};
+
 const props = defineProps({
   id: {
     type: String,
     required: true,
   },
 });
-fetchData();
+fetchData(props);
 </script>
 
 <style scoped>

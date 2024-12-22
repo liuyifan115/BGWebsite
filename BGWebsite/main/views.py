@@ -1,11 +1,12 @@
 from django.core.files.storage import default_storage
-from django.http import HttpResponse, JsonResponse
+from django.http import HttpResponse, JsonResponse, FileResponse
 import json
 import uuid
 from pathlib import Path
 from dateutil import parser
 from main.models import Activity
 from user.views import __get_current_user
+import os
 
 BASE_DIR = Path(__file__).resolve().parent.parent
 
@@ -83,6 +84,7 @@ def get_basic_info(request):
     for activity in activities:
         data.append({
             "key": str(i),
+            "id": activity.id,
             "name": activity.title,
             "persons": activity.participant,
             "time": activity.startDate,
@@ -96,3 +98,41 @@ def get_basic_info(request):
         })
         i += 1
     return JsonResponse({"success": "1", "data": data})
+
+def get_my_info(request):
+    # username = __get_current_user()
+    username = "wcz"
+
+    id = int(request.GET.get("id"))
+    activities = list(Activity.objects.filter(username=username))
+    data = []
+    i = 0
+    for activity in activities:
+        if activity.id == id:
+            data.append({
+                "key": str(i),
+                "id": activity.id,
+                "name": activity.title,
+                "persons": activity.participant,
+                "time": activity.startDate,
+                "time_end": activity.endDate,
+                "address": activity.coordinate,
+                "tags": activity.description,
+                "detail_title": activity.detail_title,
+                "detail_text": activity.detail_text,
+                "photo": activity.photo_path,
+                "video": activity.video_path,
+            })
+            return JsonResponse({"success": "1", "data": data})
+        i += 1
+
+def get_file(request):
+    file_path = request.GET.get("path")
+    if not os.path.exists(file_path) or not os.path.isfile(file_path):
+        return JsonResponse({"success": "0", "message": "file not found"})
+    response = FileResponse(open(file_path, 'rb'))
+    import mimetypes
+    guessed_type, _ = mimetypes.guess_type(file_path)
+    if guessed_type:
+        response['Content-Type'] = guessed_type
+    return response

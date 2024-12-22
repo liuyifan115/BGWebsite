@@ -9,7 +9,7 @@
 
       <template #bodyCell="{ column, record }">
         <template v-if="column.key === 'name'">
-          <a @click="handleClickName(record.key)">
+          <a @click="handleClickName(record.id)">
             {{ record.name }}
           </a>
         </template>
@@ -38,7 +38,7 @@ import { useRouter } from "vue-router";
 
 const router = useRouter();
 const handleClickName = (key: string) => {
-  router.push({ path: "/_posts/postsLayout${encodeURIComponent(key)" });
+  router.push({ path: "/_posts/postsLayout" ,query: { id: key } });
 };
 
 const columns = [

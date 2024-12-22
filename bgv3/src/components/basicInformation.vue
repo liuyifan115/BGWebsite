@@ -21,9 +21,6 @@
       <a-form-item label="调查人">
         <a-textarea :rows="1" v-model:value="basicInformation.persons" />
       </a-form-item>
-      <a-form-item label="年龄">
-        <a-input-number v-model:value="basicInformation.age" />
-      </a-form-item>
       <a-form-item label="活动简述">
         <a-textarea :rows="3" v-model:value="basicInformation.tags" />
       </a-form-item>
@@ -47,7 +44,6 @@ interface basicInfo {
   cycle: string;
   address: string;
   persons: string;
-  age: string;
   tags: string;
 }
 const basicInformation = ref<basicInfo>({
@@ -56,14 +52,13 @@ const basicInformation = ref<basicInfo>({
   cycle: "",
   address: "",
   persons: "",
-  age: "",
   tags: "",
 });
 
 const postAllBasic = async () => {
   const res = await postBasicInformation(basicInformation.value);
-  if (res.data.code === 0) {
-    message.success("保存成功");
+  if (res.data.success === "1") {
+    message.success("保存成功");1
   } else {
     message.error("保存失败");
   }

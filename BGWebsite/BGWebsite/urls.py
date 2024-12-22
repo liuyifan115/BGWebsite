@@ -30,5 +30,7 @@ urlpatterns = [
     path("api/postVideo", main.views.post_video),
     path("api/postOver", main.views.post_over),
     path("api/getBasicInfo", main.views.get_basic_info),
+    path("api/user/getMyInfo", main.views.get_my_info),
+    path("api/user/GetImage", main.views.get_file),
     path('admin/', admin.site.urls),
 ]

@@ -47,7 +47,7 @@ const routes: Array<RouteRecordRaw> = [
     component: mapService,
   },
   {
-    path: "/_posts/postsLayout:key?",
+    path: "/_posts/postsLayout",
     name: "PostsLayout",
     component: PostsLayout,
   },
