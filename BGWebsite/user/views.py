@@ -38,7 +38,7 @@ def user_login(request):
             print(data)
 
             username = data.get("username")
-            password = data.get("password")
+            password = hashlib.md5(data.get("password").encode()).hexdigest()
             print(username, password)
 
             if not username or not password:

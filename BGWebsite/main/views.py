@@ -34,8 +34,8 @@ def post_basic_info(request):
 
 def post_detail(request):
     global user_activity
-    # if __get_current_user() == "":
-    #     return JsonResponse({"success": "0", "error": "You are not logged in"})
+    if __get_current_user() == "":
+        return JsonResponse({"success": "0", "error": "You are not logged in"})
     data = json.loads(request.body)
     print(data)
     user_activity.detail_title = data.get("title")
@@ -70,12 +70,12 @@ def post_over(request):
         user_activity.photo_path = str(photo_path)
         user_activity.video_path = str(video_path)
         user_activity.isTemp = False
+        user_activity.username = __get_current_user()
         user_activity.save()
         return JsonResponse({"success": "1", "message": "upload success"})
 
 def get_basic_info(request):
-    # username = __get_current_user()
-    username = "wcz"
+    username = __get_current_user()
     if not Activity.objects.filter(username=username).exists():
         return JsonResponse({"success": "0", "message": "user not found"})
     activities = list(Activity.objects.filter(username=username))
@@ -100,8 +100,7 @@ def get_basic_info(request):
     return JsonResponse({"success": "1", "data": data})
 
 def get_my_info(request):
-    # username = __get_current_user()
-    username = "wcz"
+    username = __get_current_user()
 
     id = int(request.GET.get("id"))
     activities = list(Activity.objects.filter(username=username))

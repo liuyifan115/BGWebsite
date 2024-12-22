@@ -38,6 +38,8 @@
             :src="'http://127.0.0.1:8000/api/user/GetImage?path=' + image"
             alt="活动图片"
             class="image-item"
+            :width="400"
+            :height="400"
           />
         </div>
       </div>
