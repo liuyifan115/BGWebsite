@@ -7,20 +7,20 @@ from dateutil import parser
 from main.models import Activity
 from user.views import __get_current_user
 import os
+import copy
 
 BASE_DIR = Path(__file__).resolve().parent.parent
 
 user_activity = Activity()
+user_activity_empty = Activity()
 photo_path = []
 video_path = []
 
 def post_basic_info(request):
     global user_activity
-    print(__get_current_user())
-    # if __get_current_user() == "":
-    #     return JsonResponse({"success": "0", "error": "You are not logged in"})
+    if __get_current_user() == "":
+        return JsonResponse({"success": "0", "error": "You are not logged in"})
     data = json.loads(request.body)
-    print(data)
     user_activity.username = __get_current_user()
     user_activity.title = data.get("theme")
     user_activity.isTemp = True
@@ -37,7 +37,6 @@ def post_detail(request):
     if __get_current_user() == "":
         return JsonResponse({"success": "0", "error": "You are not logged in"})
     data = json.loads(request.body)
-    print(data)
     user_activity.detail_title = data.get("title")
     user_activity.detail_text = data.get("mainText")
     return JsonResponse({"success": "1", "message": "upload success"})
@@ -65,13 +64,17 @@ def post_video(request):
     return JsonResponse({"success": "1", "message": "upload success"})
 
 def post_over(request):
-    global user_activity
+    global user_activity, photo_path, video_path
     if json.loads(request.body).get("over"):
         user_activity.photo_path = str(photo_path)
+        photo_path.clear()
         user_activity.video_path = str(video_path)
+        video_path.clear()
         user_activity.isTemp = False
         user_activity.username = __get_current_user()
-        user_activity.save()
+        user_activity_6666 = copy.deepcopy(user_activity)
+        user_activity = copy.deepcopy(user_activity_empty)
+        user_activity_6666.save()
         return JsonResponse({"success": "1", "message": "upload success"})
 
 def get_basic_info(request):

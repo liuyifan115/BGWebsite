@@ -32,7 +32,7 @@ interface text_ {
 }
 const postText = async () => {
   const res = await postDetails(Text_.value);
-  if (res.data.code === 0) {
+  if (res.data.success === "1") {
     message.success("保存成功");
   } else {
     message.error("保存失败");

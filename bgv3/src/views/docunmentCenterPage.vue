@@ -38,7 +38,7 @@ import { useRouter } from "vue-router";
 
 const router = useRouter();
 const handleClickName = (key: string) => {
-  router.push({ path: "/_posts/postsLayout" ,query: { id: key } });
+  router.push({ path: "/_posts/postsLayout", query: { id: key } });
 };
 
 const columns = [
