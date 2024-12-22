@@ -24,7 +24,7 @@
             }"
           >
             <a-layout>
-              <show-my-post :id="pid" />
+              <show-my-post :id="props.key" />
             </a-layout>
           </a-layout-content>
         </a-layout>
@@ -35,6 +35,13 @@
 
 <script lang="ts" setup>
 import ShowMyPost from "@/views/ShowMyPost.vue";
+import { defineProps } from "vue";
+const props = defineProps({
+  key: {
+    type: String,
+    required: true,
+  },
+});
 </script>
 
 <style scoped>

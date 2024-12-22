@@ -27,8 +27,8 @@
       </div>
       <div class="data-item-row">
         <span class="data-item-title">活动详情：</span>
-        <span class="data-item-title">{{ item.text.title }}</span>
-        <span class="data-item-content">{{ item.text.mainText }}</span>
+        <span class="data-item-title">{{ item.detail_title }}</span>
+        <span class="data-item-content">{{ item.detail_text }}</span>
       </div>
       <div class="data-item-row">
         <span class="data-item-title">活动摘要：</span>
@@ -55,12 +55,13 @@ import { ref } from "vue";
 import { message } from "ant-design-vue";
 import { GetMyInfo } from "@/api/GetMyInfo";
 import { defineProps } from "vue";
+import { getBasicInformation } from "@/api/basicInfomation";
 
 // 假设这是远端接口返回的 `data` 数据
 const data = ref([]);
-const fetchData = async (id) => {
-  const res = await GetMyInfo(id);
-  if (res.success === "1") {
+const fetchData = async () => {
+  const res = await getBasicInformation();
+  if (res.data.success === "1") {
     data.value = res.data.data;
   } else {
     message.error("获取数据失败");
@@ -72,7 +73,7 @@ const props = defineProps({
     required: true,
   },
 });
-fetchData(props.id);
+fetchData();
 </script>
 
 <style scoped>
