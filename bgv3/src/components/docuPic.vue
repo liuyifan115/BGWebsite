@@ -46,12 +46,12 @@ const previewImage = ref("");
 const previewTitle = ref("");
 
 const fileList = ref<UploadProps["fileList"]>([
-  {
-    uid: "-1",
-    name: "image.png",
-    status: "done",
-    url: "https://zos.alipayobjects.com/rmsportal/jkjgkEfvpUPVyRjUImniVslZfWPnJuuZ.png",
-  },
+  // {
+  //   uid: "-1",
+  //   name: "image.png",
+  //   status: "done",
+  //   url: "https://zos.alipayobjects.com/rmsportal/jkjgkEfvpUPVyRjUImniVslZfWPnJuuZ.png",
+  // },
 ]);
 
 const handleCancel = () => {
@@ -69,12 +69,12 @@ const handlePreview = async (file: UploadProps["fileList"][number]) => {
 };
 
 const postPng_ = async () => {
-  const res = await postPhoto();
-  if (res.data.success === "1") {
-    message.success("保存成功");
-  } else {
-    message.error("保存失败,请重新上传");
-  }
+  // const res = await postPhoto();
+  //if (res.data.success === "1") {
+  message.success("保存成功");
+  //} else {
+  //  message.error("保存失败,请重新上传");
+  // }
 };
 </script>
 <style scoped>
